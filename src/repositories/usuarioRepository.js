@@ -28,7 +28,7 @@ export default class UsuarioRepository {
     }
 
     async gravar(entidade) {
-        let sql = `insert into usuario (usu_nome, usu_email, usu_senha) values (?, ?, ?)`;
+        let sql = `insert into tb_usuario (usu_nome, usu_email, usu_senha) values (?, ?, ?)`;
         let valores = [
             entidade.nome,
             entidade.email,
@@ -42,5 +42,17 @@ export default class UsuarioRepository {
         }
 
         return false;
+    }
+
+    async listar() {
+        let sql = "select * from tb_usuario";
+        let rows = await this.#banco.ExecutaComando(sql);
+
+        let lista = [];
+        for(let row of rows) {
+            lista.push(UsuarioEntity.toMap(row));
+        }
+
+        return lista;
     }
 }

@@ -13,5 +13,11 @@ router.post("/", auth.validar, (req, res) => {
     controller.cadastrar(req, res);
 });
 
+router.get("/", auth.validar, (req, res) => {
+    // #swagger.tags = ['Usuário']
+    // #swagger.summary = "Lista todos os usuários cadastrados"
+
+    controller.listar(req, res);
+})
 
 export default router;

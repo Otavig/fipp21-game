@@ -40,4 +40,18 @@ export default class FuncionarioController {
             res.status(500).json({ msg: "Erro interno no servidor!" });
         }
     }
+
+    async listar(req, res) {
+        try {
+            let lista = await this.#repoUsuario.listar();
+            if(lista.length == 0) {
+                return res.status(204).json({ msg: "Nenhum funcionário encontrado!" });
+            }
+
+            return res.status(200).json(lista);
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ msg: "Erro interno do servidor!" });
+        }
+    }
 }
