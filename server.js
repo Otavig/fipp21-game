@@ -12,6 +12,7 @@ const server = http.createServer(app);
 import { Server } from 'socket.io'
 
 import socketInit from './src/sockets/jogoSocket.js';
+import salaRoute from "../fipp21-game/src/routes/salaRoute.js"
 
 const io = new Server(server);
 
@@ -24,6 +25,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use("/login", LoginRouter);
 app.use("/usuario", UsuarioRouter);
+app.use("/sala", salaRoute)
 
 server.listen('5000', function() {
     console.log('backend em execução');
