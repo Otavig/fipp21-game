@@ -1,4 +1,6 @@
 import express from 'express';
+import LoginRouter from './routes/loginRouter.js'
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 const app = express();
@@ -18,6 +20,8 @@ socketInit(io);
 app.use(express.json());
 
 app.use(express.static(__dirname + '/public'));
+
+app.use("/login", LoginRouter);
 
 server.listen('5000', function() {
     console.log('backend em execução');
