@@ -13,7 +13,7 @@ export default class AuthMiddleware {
     }
 
     async validar(req, res, next) {
-        let token = req.cookies['blackjack'];
+        let token = req.cookies['token'];
         if(token){
             try {
                 let objLogin = jwt.verify(token, SEGREDO);

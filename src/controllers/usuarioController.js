@@ -25,7 +25,7 @@ export default class FuncionarioController {
 
             if(entidade.validar()) {
                 let result = await this.#repoUsuario.gravar(entidade);
-                
+
                 if(result) {
                     return res.status(201).json(entidade);
                 }

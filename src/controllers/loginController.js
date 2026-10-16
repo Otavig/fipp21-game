@@ -20,7 +20,7 @@ export default class LoginController {
                 if(login) {
                     let middleware = new AuthMiddleware();
                     let token = middleware.gerarToken(login.usu_id, login.usu_nome, login.usu_email);
-                    res.cookie("blackjack", token, { httpOnly: true });
+                    res.cookie("token", token, { httpOnly: true });
                     return res.status(200).json({token: token});
                 } else {
                     return res.status(404).json({msg: "Usuário não encontrado!"});
