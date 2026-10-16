@@ -5,7 +5,7 @@ const router = express.Router();
 let controller = new LoginController();
 
 router.post("/", (req, res) => {
-    // #swagger.tags = ['Usuário']
+    // #swagger.tags = ['Login']
     // #swagger.summary = "Gera a autenticação via JWT na cookie do navegador"
 
     controller.validar(req, res);

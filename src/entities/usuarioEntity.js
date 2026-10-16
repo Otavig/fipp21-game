@@ -15,6 +15,18 @@ export default class UsuarioEntity {
         this.#email = email;
         this.#senha = senha;
     }
+
+    validar() {
+        if(
+            this.#nome &&
+            this.#email &&
+            this.#senha
+        ) {
+            return true;
+        }
+
+        return false;
+    }
     
     static toMap(row) {
         return new UsuarioEntity(

@@ -26,4 +26,33 @@ export default class UsuarioRepository {
         }
         return null;
     }
+
+    async gravar(entidade) {
+        let sql = `insert into tb_usuario (usu_nome, usu_email, usu_senha) values (?, ?, ?)`;
+        let valores = [
+            entidade.nome,
+            entidade.email,
+            entidade.senha,
+        ];
+
+        let idGerado = await this.#banco.ExecutaComandoLastInserted(sql, valores);
+        if(idGerado) {
+            entidade.id = idGerado;
+            return true;
+        }
+
+        return false;
+    }
+
+    async listar() {
+        let sql = "select * from tb_usuario";
+        let rows = await this.#banco.ExecutaComando(sql);
+
+        let lista = [];
+        for(let row of rows) {
+            lista.push(UsuarioEntity.toMap(row));
+        }
+
+        return lista;
+    }
 }
