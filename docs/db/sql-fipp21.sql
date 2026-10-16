@@ -3,6 +3,8 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
+CREATE DATABASE blackjack;
+
 -- -----------------------------------------------------
 -- Table `tb_usuario`
 -- -----------------------------------------------------
@@ -151,4 +153,3 @@ CREATE TABLE IF NOT EXISTS `tb_carta` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
