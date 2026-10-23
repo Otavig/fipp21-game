@@ -1,0 +1,489 @@
+
+.container {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(
+      ellipse at 50% 48%,
+      #19533c 0%,
+      #0b3024 48%,
+      #041710 100%
+    );
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Borda da mesa de cassino */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 30px;
+  border: 2px solid rgba(210, 174, 103, 0.13);
+  border-radius: 45%;
+  pointer-events: none;
+}
+
+.tableGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(39, 130, 82, 0.2),
+    transparent 70%
+  );
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+/* Navbar */
+.navbar {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 6%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f0d69c;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  font-size: 28px;
+}
+
+.logo strong {
+  color: #fff;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.navLink {
+  color: #c8d8cf;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.navLink:hover {
+  color: #e5c683;
+}
+
+.profileButton {
+  color: #e5c683;
+  text-decoration: none;
+  border: 1px solid #997d48;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.profileButton:hover {
+  background: #c7a461;
+  color: #14291e;
+}
+
+/* Conteúdo principal */
+.hero {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px 50px;
+}
+
+.badge {
+  padding: 10px 20px;
+  color: #e5c683;
+  border: 1px solid rgba(229, 198, 131, 0.25);
+  background: rgba(18, 52, 37, 0.75);
+  border-radius: 40px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  color: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 5vw, 66px);
+  line-height: 1.15;
+  margin: 0;
+  font-weight: bold;
+}
+
+.hero h1 span {
+  color: #e5c683;
+}
+
+.description {
+  color: #b5cbbd;
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 480px;
+  margin: 22px 0 35px;
+}
+
+/* Cartas centrais */
+.cards {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 225px;
+  width: 300px;
+  margin-bottom: 36px;
+}
+
+.heroCard {
+  position: absolute;
+  width: 125px;
+  height: 175px;
+  border-radius: 12px;
+  background: #faf6ec;
+  border: 3px solid #e2d8be;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transition: transform 0.35s;
+}
+
+.heroCard span {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.heroCard span:last-child {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.heroCard strong {
+  font-size: 70px;
+  line-height: 1;
+  align-self: center;
+}
+
+.ace {
+  color: #173328;
+  left: 27px;
+  transform: rotate(-17deg);
+  z-index: 1;
+}
+
+.king {
+  color: #b83b3b;
+  right: 27px;
+  transform: rotate(17deg);
+  z-index: 2;
+}
+
+.cards:hover .ace {
+  transform: rotate(-27deg) translateX(-14px);
+}
+
+.cards:hover .king {
+  transform: rotate(27deg) translateX(14px);
+}
+
+.score {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 25px;
+  border: 1px solid #d9b56b;
+  border-radius: 8px;
+  background: #10291e;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.score span {
+  color: #d9b56b;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.score strong {
+  color: #f0d69c;
+  font-family: Georgia, serif;
+  font-size: 30px;
+}
+
+/* Botões */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.playButton,
+.roomButton {
+  min-height: 55px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-decoration: none;
+  padding: 16px 30px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+
+.playButton {
+  background: linear-gradient(135deg, #e8cb8c, #bd924e);
+  border: 1px solid #f0d69c;
+  color: #16251b;
+}
+
+.playButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(201, 161, 86, 0.3);
+}
+
+.buttonIcon {
+  font-size: 14px;
+}
+
+.roomButton {
+  color: #e5c683;
+  border: 1px solid #987c49;
+  background: rgba(9, 37, 26, 0.8);
+}
+
+.roomButton:hover {
+  transform: translateY(-3px);
+  background: rgba(199, 164, 97, 0.15);
+}
+
+.hint {
+  color: #91aa9a;
+  font-size: 12px;
+  margin-top: 25px;
+}
+
+/* Cartas do fundo */
+.playingCard {
+  position: absolute;
+  z-index: 1;
+  width: 110px;
+  height: 160px;
+  border: 3px solid #e2d8be;
+  background: #faf6ec;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  animation: floating 5s ease-in-out infinite;
+}
+
+.playingCard span {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.playingCard span:last-child {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.playingCard strong {
+  align-self: center;
+  font-size: 60px;
+}
+
+.cardLeft {
+  top: 28%;
+  left: 9%;
+  color: #b33434;
+  --rotation: -20deg;
+  animation-delay: -1s;
+}
+
+.cardRight {
+  right: 9%;
+  bottom: 23%;
+  color: #173328;
+  --rotation: 20deg;
+  animation-delay: -3s;
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--rotation));
+  }
+  50% {
+    transform: translateY(-18px) rotate(var(--rotation));
+  }
+}
+
+/* Rodapé */
+.footer {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 25px;
+  color: #95b09f;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.footer span {
+  color: #d9b56b;
+  font-size: 16px;
+}
+
+.footer small {
+  color: #718d7b;
+  font-size: 10px;
+  margin-left: 15px;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .playingCard {
+    opacity: 0.2;
+  }
+
+  .cardLeft {
+    left: -30px;
+  }
+
+  .cardRight {
+    right: -30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 22px 20px;
+  }
+
+  .logo {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .logo span {
+    font-size: 22px;
+  }
+
+  .nav {
+    gap: 10px;
+  }
+
+  .profileButton {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+
+  .navLink {
+    font-size: 12px;
+  }
+
+  .hero {
+    padding: 25px 16px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .playButton,
+  .roomButton {
+    width: 100%;
+    max-width: 310px;
+  }
+
+  .playingCard {
+    display: none;
+  }
+
+  .container::before {
+    inset: 10px;
+    border-radius: 30px;
+  }
+
+  .footer {
+    gap: 7px;
+    font-size: 9px;
+  }
+
+  .footer small {
+    width: 100%;
+    text-align: center;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playingCard {
+    animation: none;
+    transform: rotate(var(--rotation));
+  }
+
+  .heroCard,
+  .playButton,
+  .roomButton {
+    transition: none;
+  }
+}

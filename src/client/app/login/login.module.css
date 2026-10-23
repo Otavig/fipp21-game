@@ -1,0 +1,427 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    #19533c 0%,
+    #0b3024 48%,
+    #041710 100%
+  );
+}
+
+/* Textura da mesa de cassino */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 25px;
+  border: 2px solid rgba(210, 174, 103, 0.15);
+  border-radius: 45%;
+  pointer-events: none;
+}
+
+/* Botão voltar para Home */
+.voltarHome {
+  position: absolute;
+  top: 35px;
+  left: 40px;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 20px;
+  border: 1px solid #997d48;
+  border-radius: 8px;
+
+  background: rgba(9, 37, 26, 0.85);
+  color: #e5c683;
+
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: all 0.3s ease;
+}
+
+.voltarHome span {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.voltarHome:hover {
+  background: #c7a461;
+  color: #14291e;
+  box-shadow: 0 5px 20px rgba(201, 161, 86, 0.25);
+}
+
+.voltarHome:hover span {
+  transform: translateX(-4px);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .voltarHome {
+    top: 20px;
+    left: 20px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  .container {
+    padding-top: 90px;
+  }
+}
+
+.tableGlow {
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(39, 130, 82, 0.22), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* Conteúdo principal */
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #d9b56b;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 3px;
+  margin-bottom: 22px;
+}
+
+.brand span {
+  font-size: 23px;
+}
+
+.brand span:last-child {
+  color: #b84242;
+}
+
+.header h1 {
+  color: #ffffff;
+  font-family: Georgia, serif;
+  font-size: clamp(29px, 5vw, 39px);
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.header p {
+  color: #afc7b8;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Painel de login */
+.form {
+  padding: 36px;
+  background: linear-gradient(
+    155deg,
+    rgba(17, 42, 32, 0.97),
+    rgba(7, 24, 18, 0.98)
+  );
+  border: 1px solid #8b754a;
+  border-radius: 18px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.formHeader h2 {
+  color: #e5c683;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  margin: 0;
+}
+
+.cardSymbol {
+  color: #c7a461;
+  font-size: 20px;
+}
+
+/* Campos */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+.campo label {
+  color: #ead9b6;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.campo input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 16px;
+  background: #0a2119;
+  border: 1px solid #3c5949;
+  border-radius: 8px;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.campo input::placeholder {
+  color: #758f81;
+}
+
+.campo input:focus {
+  border-color: #d6b471;
+  box-shadow: 0 0 0 3px rgba(214, 180, 113, 0.12);
+}
+
+/* Botão dourado */
+.button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 6px;
+  background: linear-gradient(135deg, #e8cb8c, #bd924e);
+  border: 1px solid #f0d69c;
+  border-radius: 8px;
+  color: #16251b;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 25px rgba(201, 161, 86, 0.28);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mensagem {
+  color: #ff9a9a;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+.formFooter {
+  color: #819e8e;
+  font-size: 11px;
+  text-align: center;
+  margin: 25px 0 0;
+  letter-spacing: 0.5px;
+}
+
+.footer {
+  color: #91aa97;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.footer span {
+  color: #d9b56b;
+  padding: 0 6px;
+}
+
+/* Cartas decorativas */
+.playingCard {
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  height: 175px;
+  box-sizing: border-box;
+  background: #faf6ec;
+  border: 3px solid #e2d8be;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  color: #172b22;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35);
+  user-select: none;
+  pointer-events: none;
+  animation: float 6s ease-in-out infinite;
+}
+
+.playingCard span {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.playingCard span:last-child {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.playingCard strong {
+  align-self: center;
+  font-size: 65px;
+  line-height: 1;
+}
+
+.cardOne {
+  top: 17%;
+  left: 9%;
+  transform: rotate(-20deg);
+  animation-name: floatLeft;
+}
+
+.cardTwo {
+  top: 23%;
+  right: 9%;
+  color: #b33434;
+  transform: rotate(17deg);
+  animation-name: floatRight;
+  animation-delay: -2s;
+}
+
+.cardThree {
+  bottom: 9%;
+  left: 16%;
+  transform: rotate(18deg);
+  animation-name: floatRight;
+  animation-delay: -4s;
+}
+
+/* Animações */
+@keyframes floatLeft {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-20deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(-16deg);
+  }
+}
+
+@keyframes floatRight {
+  0%,
+  100% {
+    transform: translateY(0) rotate(17deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(21deg);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .playingCard {
+    opacity: 0.22;
+  }
+
+  .cardOne {
+    left: -35px;
+  }
+
+  .cardTwo {
+    right: -35px;
+  }
+
+  .cardThree {
+    left: -40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 30px 16px;
+  }
+
+  .container::before {
+    inset: 10px;
+    border-radius: 30px;
+  }
+
+  .form {
+    padding: 28px 22px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .header h1 {
+    font-size: 30px;
+  }
+
+  .brand {
+    letter-spacing: 2px;
+    font-size: 11px;
+  }
+
+  .playingCard {
+    width: 85px;
+    height: 125px;
+  }
+
+  .playingCard strong {
+    font-size: 43px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playingCard {
+    animation: none;
+  }
+
+  .button,
+  .campo input {
+    transition: none;
+  }
+}
