@@ -28,6 +28,16 @@ export default class SalaRepository {
 
         return lista;
     }
+  
+    async listarPorUsu(usu){
+      let sql = 'select * from tb_sala where usu_id = ?'
+      let rows = await this.#banco.ExecutaComando(sql,[usu])
+
+      let lista = []
+      for(let r of rows){
+        lista.push(salaEntity.toMap(r))
+      }
+    }
 
     async entrar (codigo, usuId){
         const connection = await this.#banco.obterConexao();
