@@ -6,9 +6,9 @@ const router = express.Router();
 const salaController = new SalaController();
 const authMiddleware = new AuthMiddleware();
 
-router.post("/lista", auth.validar, (req, res) => {
-    // #swagger.tags = ['Usuário']
-    // #swagger.summary = "Cadastra um novo usuário"
+router.get("/lista", auth.validar, (req, res) => {
+    // #swagger.tags = ['Sala']
+    // #swagger.summary = "Lista todas as salas"
 
     controller.listar(req, res);
 });
