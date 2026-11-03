@@ -1,5 +1,6 @@
 import Database from "../db/database.js";
 import SalaEntity from "../entities/salaEntity.js";
+import SalaError from "../errors/salaError.js";
 
 export default class SalaRepository {
   #banco;
@@ -17,20 +18,27 @@ export default class SalaRepository {
     return null;
   }
 
-      async listar() {
-        let sql = "select * from tb_sala";
-        let rows = await this.#banco.ExecutaComando(sql);
+  async obterPorCodigo(codigo) {
+    const sql = `SELECT sal_id, sal_status, sal_max_jogadores, sal_saldo_inicial
+                 FROM tb_sala
+                 WHERE sal_codigo = ?`;
+    const rows = await this.#banco.ExecutaComando(sql, [codigo]);
+    return rows[0] ?? null;
+  }
 
-        let lista = [];
-        for(let row of rows) {
-            lista.push(SalaEntity.toMap(row));
-        }
+      // async listar() {
+      //   let sql = "select * from tb_sala";
+      //   let rows = await this.#banco.ExecutaComando(sql);
 
-        return lista;
-    }
+      //   let lista = [];
+      //   for(let row of rows) {
+      //       lista.push(SalaEntity.toMap(row));
+      //   }
 
-    async entrar (codigo, usuId){
-        const connection = await this.#banco.obterConexao();
+      //   return lista;
+
+  async entrar(codigo, usuId, { limite, saldoInicial }) {
+    const connection = await this.#banco.obterConexao();
     let transacaoIniciada = false;
 
     try {
@@ -38,7 +46,7 @@ export default class SalaRepository {
       transacaoIniciada = true;
 
       const [salas] = await connection.execute(
-        `SELECT sal_id, sal_status, sal_max_jogadores, sal_saldo_inicial
+        `SELECT sal_id, sal_status
          FROM tb_sala
          WHERE sal_codigo = ?
          FOR UPDATE`,
@@ -53,17 +61,6 @@ export default class SalaRepository {
 
       if (!['Aguardando', 'Em andamento'].includes(sala.sal_status)) {
         throw new SalaError(409, 'Esta sala não aceita novos participantes.');
-      }
-
-      const limite = Number(sala.sal_max_jogadores);
-      const saldoInicial = Number(sala.sal_saldo_inicial);
-
-      if (!Number.isInteger(limite) || limite <= 0) {
-        throw new Error(`A sala ${codigo} não tem um limite válido.`);
-      }
-
-      if (!Number.isFinite(saldoInicial) || saldoInicial < 0) {
-        throw new Error(`A sala ${codigo} não tem um saldo inicial válido.`);
       }
 
       const [participantesAtivos] = await connection.execute(

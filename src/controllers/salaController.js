@@ -1,9 +1,13 @@
+import SalaService from '../services/salaService.js'
+import SalaError from '../errors/salaError.js'
 import salaRepository from '../repositories/salaRepository.js'
 
 export default class salaController {
+    #salaService
     #repoSala
 
     constructor (){
+        this.#salaService = new SalaService()
         this.#repoSala = new salaRepository()
     }
 
@@ -41,7 +45,7 @@ export default class salaController {
     }
 
     try {
-      await this.#repoSala.entrar(codigo, usuId);
+      await this.#salaService.entrar(codigo, usuId);
 
       return res.status(200).json({
         msg: 'Entrou com sucesso!',
