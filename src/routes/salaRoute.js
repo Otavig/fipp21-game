@@ -1,16 +1,21 @@
 import express from 'express';
 import SalaController from '../controllers/salaController.js';
-import auth from '../middlewares/authMiddleware.js';
+import AuthMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
-const salaController = new SalaController();
-const authMiddleware = new AuthMiddleware();
+const controller = new SalaController();
+const auth = new AuthMiddleware();
 
-router.post("/lista", auth.validar, (req, res) => {
-    // #swagger.tags = ['Usuário']
-    // #swagger.summary = "Cadastra um novo usuário"
-
+router.get('/', auth.validar, (req, res) => {
     controller.listar(req, res);
+});
+
+router.post('/lista', auth.validar, (req, res) => {
+    controller.listar(req, res);
+});
+
+router.post('/entrar/:codigo', auth.validar, (req, res) => {
+    controller.entrar(req, res);
 });
 
 export default router;

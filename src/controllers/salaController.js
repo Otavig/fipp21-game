@@ -1,67 +1,54 @@
-import SalaService from '../services/salaService.js'
-import SalaError from '../errors/salaError.js'
-import salaRepository from '../repositories/salaRepository.js'
 
-export default class salaController {
-    #salaService
-    #repoSala
+import SalaRepository from '../repositories/salaRepository.js';
 
-    constructor (){
-        this.#salaService = new SalaService()
-        this.#repoSala = new salaRepository()
+export default class SalaController {
+    #repoSala;
+
+    constructor() {
+        this.#repoSala = new SalaRepository();
     }
 
     async listar(req, res) {
         try {
-            let lista = await this.#repoSala.listar();
-            if(lista.length == 0) {
+            const lista = await this.#repoSala.listar();
+            if (lista.length === 0) {
                 return res.status(204).json({ msg: "Nenhuma sala encontrada!" });
             }
 
             return res.status(200).json(lista);
         } catch (error) {
-            console.log(error)
+            console.log(error);
             return res.status(500).json({ msg: "Erro interno do servidor!" });
         }
     }
 
-     async entrar(req, res) {
-    const codigo = String(req.params.codigo ?? '')
-      .trim()
-      .toUpperCase();
+    async entrar(req, res) {
+        const codigo = String(req.params.codigo ?? req.body?.codigo ?? '')
+            .trim();
 
-    if (!/^[A-Z0-9]{5}$/.test(codigo)) {
-      return res.status(400).json({
-        msg: 'Código da sala inválido.',
-      });
+        if (!codigo) {
+            return res.status(400).json({ msg: 'Nome da sala inválido.' });
+        }
+
+        const usuId = Number(req.login?.id ?? req.body?.usu_id ?? req.body?.usuId);
+
+        if (!Number.isInteger(usuId) || usuId <= 0) {
+            return res.status(401).json({ msg: 'Usuário não autenticado.' });
+        }
+
+        try {
+            await this.#repoSala.entrar(codigo, usuId);
+
+            return res.status(200).json({
+                msg: 'Entrou com sucesso!',
+            });
+        } catch (error) {
+            console.error('Erro ao entrar na sala:', error);
+            const status = Number(error?.status ?? 500);
+
+            return res.status(status).json({
+                msg: error?.message ?? 'Erro interno ao entrar na sala.',
+            });
+        }
     }
-
-    const usuId = Number(req.login?.id);
-
-    if (!Number.isInteger(usuId) || usuId <= 0) {
-      return res.status(401).json({
-        msg: 'Usuário não autenticado.',
-      });
-    }
-
-    try {
-      await this.#salaService.entrar(codigo, usuId);
-
-      return res.status(200).json({
-        msg: 'Entrou com sucesso!',
-      });
-    } catch (error) {
-      if (error instanceof SalaError) {
-        return res.status(error.status).json({
-          msg: error.message,
-        });
-      }
-
-      console.error('Erro ao entrar na sala:', error);
-
-      return res.status(500).json({
-        msg: 'Erro interno ao entrar na sala.',
-      });
-    }
-  }
 }
