@@ -10,7 +10,13 @@ router.get("/lista", auth.validar, (req, res) => {
     // #swagger.tags = ['Sala']
     // #swagger.summary = "Lista todas as salas"
 
-    controller.listar(req, res);
+    salaController.listar(req, res);
 });
+
+router.get('/lista-usu', auth.validar, (req,res) => {
+    // #swagger.tags = ['Sala']
+    // #swagger.summary = 'Lista as salas do usuário logado'
+    salaController.listarPorUsu(req,res)
+})
 
 export default router;
