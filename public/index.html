@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salas</title>
+  </head>
+  <body>
+    <h1>Salas</h1>
+
+    <input id="nomeSala" type="text" placeholder="Digite o nome da sala" />
+    <button id="btnEntrar">Entrar na sala</button>
+    <button id="btnListar">Listar salas</button>
+
+    <div id="status"></div>
+    <ul id="listaSalas"></ul>
+
+    <script>
+      const statusEl = document.getElementById('status');
+      const listaEl = document.getElementById('listaSalas');
+      const nomeSalaInput = document.getElementById('nomeSala');
+
+      async function listarSalas() {
+        statusEl.textContent = 'Carregando salas...';
+
+        try {
+          const response = await fetch('/sala', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          });
+
+          if (!response.ok) {
+            throw new Error('Erro ao buscar salas');
+          }
+
+          const salas = await response.json();
+          renderSalas(salas);
+          statusEl.textContent = 'Salas carregadas com sucesso.';
+        } catch (error) {
+          statusEl.textContent = error.message;
+          listaEl.innerHTML = '';
+        }
+      }
+
+      async function entrarSala() {
+        const nome = nomeSalaInput.value.trim();
+
+        if (!nome) {
+          statusEl.textContent = 'Informe o nome da sala.';
+          return;
+        }
+
+        statusEl.textContent = 'Entrando na sala...';
+
+        try {
+          const response = await fetch(`/sala/entrar/${encodeURIComponent(nome)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.msg || 'Não foi possível entrar na sala.');
+          }
+
+          statusEl.textContent = data.msg || 'Entrou com sucesso!';
+          listarSalas();
+        } catch (error) {
+          statusEl.textContent = error.message;
+        }
+      }
+
+      function renderSalas(salas) {
+        listaEl.innerHTML = '';
+
+        if (!Array.isArray(salas) || salas.length === 0) {
+          listaEl.innerHTML = '<li>Nenhuma sala encontrada.</li>';
+          return;
+        }
+
+        salas.forEach((sala) => {
+          const item = document.createElement('li');
+          item.innerHTML = `
+            <span>${sala.sal_nome || 'Sala sem nome'}</span>
+            <span>ID ${sala.sal_id}</span>
+          `;
+          listaEl.appendChild(item);
+        });
+      }
+
+      document.getElementById('btnEntrar').addEventListener('click', entrarSala);
+      document.getElementById('btnListar').addEventListener('click', listarSalas);
+      listarSalas();
+    </script>
+  </body>
+</html>
