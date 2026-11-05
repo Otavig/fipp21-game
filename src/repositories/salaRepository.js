@@ -26,17 +26,6 @@ export default class SalaRepository {
     return rows[0] ?? null;
   }
 
-      // async listar() {
-      //   let sql = "select * from tb_sala";
-      //   let rows = await this.#banco.ExecutaComando(sql);
-
-      //   let lista = [];
-      //   for(let row of rows) {
-      //       lista.push(SalaEntity.toMap(row));
-      //   }
-
-      //   return lista;
-
   async entrar(codigo, usuId, { limite, saldoInicial }) {
     const connection = await this.#banco.obterConexao();
     let transacaoIniciada = false;
@@ -63,16 +52,16 @@ export default class SalaRepository {
         throw new SalaError(409, 'Esta sala não aceita novos participantes.');
       }
 
-      const [participantesAtivos] = await connection.execute(
+      const [participanteAtivo] = await connection.execute(
         `SELECT par_id
          FROM tb_participante
-         WHERE sal_id = ? AND usu_id = ? AND par_dtsaida IS NULL
-         LIMIT 1`,
+          WHERE sal_id = ? AND usu_id = ? AND par_dtsaida IS NULL
+          LIMIT 1`,
         [sala.sal_id, usuId],
       );
 
-      if (participantesAtivos.length > 0) {
-        throw new SalaError(409, 'Você já está nesta sala.');
+      if (participanteAtivo.length > 0) {
+        throw new SalaError(409, 'Usuário já está participando desta sala.');
       }
 
       const [contagem] = await connection.execute(
