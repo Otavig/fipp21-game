@@ -1,4 +1,4 @@
-import BaseEntity from "./baseEntity";
+import BaseEntity from "./baseEntity.js";
 
 export default class salaEntity extends BaseEntity{
     #salId

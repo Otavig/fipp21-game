@@ -11,8 +11,8 @@ import http from 'http'
 const server = http.createServer(app);
 import { Server } from 'socket.io'
 
-import socketInit from './src/sockets/jogoSocket.js';
-import salaRoute from "../fipp21-game/src/routes/salaRoute.js"
+import socketInit from './src/sockets/socket.js';
+import salaRoute from "./src/routes/salaRoute.js"
 
 const io = new Server(server);
 
