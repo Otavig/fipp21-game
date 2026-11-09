@@ -1,6 +1,7 @@
 import express from 'express';
-import LoginRouter from './src/routes/loginRouter.js'
-import UsuarioRouter from './src/routes/usuarioRouter.js'
+import loginRouter from './src/routes/loginRouter.js'
+import usuarioRouter from './src/routes/usuarioRouter.js'
+import salaRouter from './src/routes/salaRouter.js';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -22,8 +23,9 @@ app.use(express.json());
 
 app.use(express.static(__dirname + '/public'));
 
-app.use("/login", LoginRouter);
-app.use("/usuario", UsuarioRouter);
+app.use("/login",loginRouter);
+app.use("/usuario", usuarioRouter);
+app.use("/sala", salaRouter);
 
 server.listen('5000', function() {
     console.log('backend em execução');
