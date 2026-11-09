@@ -17,7 +17,7 @@ export default class SalaRepository {
     return null;
   }
 
-      async listar() {
+    async listar() {
         let sql = "select * from tb_sala";
         let rows = await this.#banco.ExecutaComando(sql);
 
@@ -35,8 +35,14 @@ export default class SalaRepository {
 
       let lista = []
       for(let r of rows){
-        lista.push(salaEntity.toMap(r))
+        lista.push(SalaEntity.toMap(r))
       }
     }
-  
+
+    async criar(nome, usuId) {
+        let sql = "insert into tb_sala(sal_nome, usu_id) values (?, ?)";
+        let salaiInserida = this.#banco.ExecutaComandoLastInserted(sql, [nome, usuId]);
+        
+        return salaiInserida;
+    } 
 }
