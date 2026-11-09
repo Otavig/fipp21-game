@@ -17,7 +17,7 @@ export default class SalaRepository {
     return null;
   }
 
-    async listar() {
+   async listar() {
         let sql = "select * from tb_sala";
         let rows = await this.#banco.ExecutaComando(sql);
 
