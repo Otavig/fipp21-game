@@ -6,6 +6,11 @@ const salaRouter = express.Router();
 const auth = new AuthMiddleware();
 const control = new SalaController();
 
+router.get('/lista-usu', auth.validar, (req,res) => {
+    // #swagger.tags = ['Sala']
+    // #swagger.summary = 'Lista as salas do usuário logado'
+    salaController.listarPorUsu(req,res)
+})
 
 salaRouter.post("/", auth.validar, (req,res) => {
     // #swagger.tags = ['Sala']
